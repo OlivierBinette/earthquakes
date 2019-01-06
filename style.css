@@ -2,7 +2,7 @@ body {
     margin: 0;
     overflow: hidden;
     cursor: crosshair;
-    background:radial-gradient(#444444, #222222);;
+    background:radial-gradient(circle, #444444, #222222);;
 }
 
 canvas {
