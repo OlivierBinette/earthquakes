@@ -20,8 +20,15 @@ function Controls(target, camera, renderer, domElement) {
 }
 
     Controls.prototype.handleMouseMove = function(event) {
-        this.mousePosition.x = 2 * (event.clientX || event.targetTouches[0].pageX)/window.innerWidth - 1;
-        this.mousePosition.y = 1 - 2*(event.clientY || event.targetTouches[0].pageY)/window.innerHeight;
+        let posX = (event.clientX || event.targetTouches[0].pageX);
+        let posY = (event.clientY || event.targetTouches[0].pageY);
+
+        let tooltip = document.getElementById("tooltip");
+        tooltip.style.left = (posX + tooltip.clientWidth < document.body.clientWidth)? posX:document.body.clientWidth-tooltip.clientWidth;
+        tooltip.style.top = (posY + tooltip.clientHeight < document.body.clientHeight)? posY:document.body.clientHeight-tooltip.clientHeight;
+
+        this.mousePosition.x = 2 * posX / window.innerWidth - 1;
+        this.mousePosition.y = 1 - 2 * posY / window.innerHeight;
 
         if(this.dragging){
             dx = this.mousePosition.x - this.pastMousePosition.x;
@@ -41,9 +48,6 @@ function Controls(target, camera, renderer, domElement) {
 
         this.pastMousePosition.x = this.mousePosition.x;
         this.pastMousePosition.y = this.mousePosition.y;
-
-        document.getElementById("tooltip").style.top = (event.clientY || event.targetTouches[0].pageY);
-        document.getElementById("tooltip").style.left = (event.clientX || event.targetTouches[0].pageX);
 
         this.onMouseMove(event);
     }
