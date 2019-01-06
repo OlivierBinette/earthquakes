@@ -3,4 +3,4 @@
 
 Interact with it [here](https://olivierbinette.ca/earthquakes).
 
-![](demo.png)
+<img src="demo.png" href="https://olivierbinette.ca/earthquakes/">
