@@ -19,9 +19,9 @@ Point.prototype.constructor = Point;
 
 
 Point.DEFAULT_GEO = new THREE.SphereGeometry(0.02, 12, 12);
-Point.DEFAULT_MAT = new THREE.MeshBasicMaterial({
+Point.DEFAULT_MAT = new THREE.MeshLambertMaterial({
     color: 0x3388ff,
-    side: THREE.FrontSide,
+    //side: THREE.FrontSide,
     transparent: true,
     opacity:0.8
 });

@@ -6,7 +6,7 @@ document.body.appendChild( renderer.domElement );
 
 // Scene
 var scene = new THREE.Scene();
-scene.background = new THREE.Color( 0xffffff );
+//scene.background = new THREE.Color( 0xffffff );
 
 // Camera
 var camera = new THREE.PerspectiveCamera( 70, window.innerWidth/window.innerHeight, 0.1, 1000 );
@@ -15,7 +15,7 @@ scene.add(camera);
 
 // Lights
 scene.add(new THREE.AmbientLight(0xffffff, 0.7) );
-var light = new THREE.PointLight( 0xffffff, 0.2, 1000 );
+var light = new THREE.PointLight( 0xffffff, 0.25, 1500 );
 light.position.set( 50, 25, 50 );
 camera.add( light );
 
@@ -52,11 +52,15 @@ data = d3.csv('quakes-small.csv', function(d){
     pt["place"] = d.place;
     pt["time"] = new Date(d.time);
     pt.material = Point.DEFAULT_MAT.clone();
-    pt.material.color.setRGB(
-        (d.mag**2 - 12) / 69.0,
-        1 - (d.mag**2 - 12) / 69.0,
-        1 - (d.mag**2 - 12) / 69.0
-    );
+    if (d.mag < 7){
+        pt.material.color.setHex(0x4B98C3);
+    }
+    else if (d.mag < 8){
+        pt.material.color.setHex(0xF58D12);
+    }
+    else {
+        pt.material.color.setHex(0xC72525);
+    }
     points.add(pt);
 }).then(
     function(data) {
