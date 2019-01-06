@@ -1,0 +1,32 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    cursor: crosshair;
+}
+
+canvas { width: 100%; height: 100%; }
+
+#tooltip {
+    display: none;
+    background: white;
+    position: absolute;
+    font-family: 'Helvetica Neue', monospace;
+    padding: 3px;
+    max-width:250px;
+    border-style: solid;
+    border-color: #555555;
+    border-width: 0.5px;
+}
+
+#tooltip_magnitude {
+    font-weight: bold;
+}
+
+td {
+    font-size: 7pt;
+    vertical-align: top;
+}
+
+td.label {
+    text-align: left;
+}
