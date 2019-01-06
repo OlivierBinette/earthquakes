@@ -104,12 +104,11 @@ function highlightPoints(){
     }
     // Highlighting
     highlighted = [];
-    for (var i = 0; i < intersects.length; i++) {
-        intersects[i].object.highlight();
-        intersects[i].object.setScale(1.25 * controls.fovScale);
-        highlighted.push(intersects[i])
-    }
     if (intersects.length > 0) {
+        intersects[0].object.highlight();
+        intersects[0].object.setScale(1.25 * controls.fovScale);
+        highlighted.push(intersects[0])
+
         document.getElementById("tooltip").style.display="block";
         document.getElementById("tooltip_magnitude").innerHTML = intersects[0].object["magnitude"];
         var date = intersects[0].object["time"];
