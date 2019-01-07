@@ -35,15 +35,18 @@ function Controls(target, camera, renderer, domElement) {
             dy = this.mousePosition.y - this.pastMousePosition.y;
 
             var len = Math.sqrt(dx*dx + dy*dy);
-            var axis = {x:0, y:0, z:0};
+            var axis = {x:0, y:0, z:0}
             var quat = new THREE.Quaternion();
             if(len > 0) {
                 axis.y = dx/len;
                 axis.x = -dy/len;
                 axis.z = 0;
-                quat.setFromAxisAngle(axis, Math.PI * this.fovScale * len)
+                quat.setFromAxisAngle(axis, Math.PI * this.fovScale * len);
+
                 this.target.applyQuaternion(quat);
             }
+
+
         }
 
         this.pastMousePosition.x = this.mousePosition.x;

@@ -23,6 +23,18 @@ camera.add( light );
 var world = new THREE.Group();
 var globe = new Globe();
 world.add( globe );
+
+var axisGeo = new THREE.Geometry();
+axisGeo.vertices.push(
+    new THREE.Vector3( 0, 1.2, 0 ),
+    new THREE.Vector3( 0, -1.2, 0 ),
+);
+var axisMat = new THREE.LineBasicMaterial({
+    color: 0xeeeeee
+});
+var axis = new THREE.Line(axisGeo, axisMat);
+world.add(axis);
+
 /*
  * Points
  */
@@ -131,7 +143,9 @@ makeLand();
 
 var quat = new THREE.Quaternion();
 function animate() {
-    quat.setFromAxisAngle({x:1/Math.sqrt(2), y:1/Math.sqrt(2), z:0}, -0.0005*controls.fovScale);
+    var vector = new THREE.Vector3(0,1,0);
+    vector.applyQuaternion(world.quaternion);
+    quat.setFromAxisAngle(vector, 0.0003*controls.fovScale);
     world.applyQuaternion(quat);
     requestAnimationFrame( animate );
     renderer.render(scene, camera);
