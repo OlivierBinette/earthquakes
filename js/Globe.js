@@ -12,7 +12,7 @@ function Globe(){
 Globe.prototype = Object.create(THREE.Mesh.prototype);
 Globe.prototype.constructor = Globe;
 
-Globe.OPACITY = 0.7;
+Globe.OPACITY = 0.6;
 Globe.DEFAULT_GEO = new THREE.SphereGeometry(1, 128, 128);
 Globe.DEFAULT_MAT = new THREE.MeshLambertMaterial({
     color: 0xffffff,
