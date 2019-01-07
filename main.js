@@ -38,7 +38,6 @@ world.add(axis);
 /*
  * Points
  */
-
 // Generating the dataset
 /*var x=rnorm(), y=rnorm(), z=rnorm();
 function rsphere(){
@@ -52,6 +51,20 @@ for (var i = 0; i < 5000; i ++) dataset.push(rsphere());
 */
 
 var points = new THREE.Group();
+var depths = new THREE.Group();
+var lineMat;
+var ptMat1 = Point.DEFAULT_MAT.clone();
+ptMat1.color.setHex(0x4B98C3);
+var ptMat2 = Point.DEFAULT_MAT.clone();
+ptMat2.color.setHex(0xF58D12);
+var ptMat3 = Point.DEFAULT_MAT.clone();
+ptMat3.color.setHex(0xC72525);
+var lineMat1 = new THREE.LineBasicMaterial();
+lineMat1.color.setHex(0x4B98C3);
+var lineMat2 = lineMat1.clone();
+lineMat2.color.setHex(0xF58D12);
+var lineMat3 = lineMat1.clone();
+lineMat3.color.setHex(0xC72525);
 var x, y, z, phi, lambda;
 data = d3.csv('quakes-small.csv', function(d){
     phi = Math.PI*d.latitude/180.0;
@@ -63,20 +76,33 @@ data = d3.csv('quakes-small.csv', function(d){
     pt["magnitude"] = d.mag;
     pt["place"] = d.place;
     pt["time"] = new Date(d.time);
-    pt.material = Point.DEFAULT_MAT.clone();
+    pt["depth"] = d.depth;
+
+    var lineMat = new THREE.LineBasicMaterial();
     if (d.mag < 7){
-        pt.material.color.setHex(0x4B98C3);
+        pt.material = ptMat1;
+        lineMat = lineMat1;
     }
     else if (d.mag < 8){
-        pt.material.color.setHex(0xF58D12);
+        pt.material = ptMat2;
+        lineMat = lineMat2;
     }
     else {
-        pt.material.color.setHex(0xC72525);
+        pt.material = ptMat3;
+        lineMat = lineMat3;
     }
+    var s = 1 - d.depth / 6731.0;
+    var lineGeo = new THREE.Geometry();
+    lineGeo.vertices.push(
+        new THREE.Vector3( x, y, z ),
+        new THREE.Vector3( s*x, s*y, s*z ),
+    );
+    depths.add(new THREE.Line(lineGeo, lineMat));
     points.add(pt);
 }).then(
     function(data) {
         world.add(points);
+        world.add(depths);
         scene.add(world);
 
         // Removing the loading indicator
@@ -128,11 +154,12 @@ function highlightPoints(){
         intersects[0].object.setScale(1.25 * controls.fovScale);
         highlighted.push(intersects[0])
 
-        document.getElementById("tooltip").style.display="block";
         document.getElementById("tooltip_magnitude").innerHTML = intersects[0].object["magnitude"];
         var date = intersects[0].object["time"];
         document.getElementById("tooltip_date").innerHTML = MONTHS[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
+        document.getElementById("tooltip_depth").innerHTML = intersects[0].object["depth"] + " km";
         document.getElementById("tooltip_note").innerHTML = intersects[0].object["place"];
+        document.getElementById("tooltip").style.display="block";
     }
     else {
         document.getElementById("tooltip").style.display="none";
