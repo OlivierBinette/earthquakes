@@ -1,8 +1,32 @@
 body {
     margin: 0;
     overflow: hidden;
-    cursor: crosshair;
     background:radial-gradient(circle, #444444, #222222);;
+}
+
+#footer {
+    padding:10px;
+    text-align: right;
+    vertical-align: center;
+    color: #f5f5f5;
+    width:300px;
+    position:absolute;
+    font-family: 'Helvetica Neue', monospace;
+    font-size: 8pt;
+    line-height: 10pt;
+    right:0px;
+    bottom:0px;
+}
+
+a, a:visited {
+    color: #f5f5f5;
+    text-decoration: none; /* no underline */
+}
+
+a:hover {
+    color: #f5f5f5;
+    text-shadow: white;
+    text-decoration: underline;
 }
 
 canvas {

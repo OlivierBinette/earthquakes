@@ -91,7 +91,7 @@ data = d3.csv('quakes-small.csv', function(d){
         pt.material = ptMat3;
         lineMat = lineMat3;
     }
-    var s = 1 - d.depth / 6731.0;
+    var s = 1 - d.depth / 6371.0;
     var lineGeo = new THREE.Geometry();
     lineGeo.vertices.push(
         new THREE.Vector3( x, y, z ),
@@ -125,7 +125,7 @@ controls.onMouseMove = function(event) {
     highlightPoints();
 };
 controls.onMouseUp = function(event) {
-    document.body.style.cursor = "crosshair";
+    document.body.style.cursor = "initial";
 }
 controls.onMouseDown = function(event) {
     document.body.style.cursor = "grabbing";
