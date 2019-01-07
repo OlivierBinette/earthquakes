@@ -26,6 +26,6 @@ async function makeLand() {
     const response = await fetch("https://unpkg.com/world-atlas@1.1.4/world/50m.json");
     const topology = await response.json();
     const mesh = topojson.mesh(topology, topology.objects.land);
-    const land = wireframe(mesh, 1, new THREE.LineBasicMaterial({color: 0xffffff}));
+    const land = wireframe(mesh, 1, new THREE.LineBasicMaterial({color: 0x333333}));
     world.add(land);
 }

@@ -9,7 +9,7 @@ function Controls(target, camera, renderer, domElement) {
     this.domElement = domElement;
 
     this.fovScale = 1;
-    this.maxfov = 70;
+    this.maxfov = 40;
     this.zoom = 0;
 
     // Flag for dragging action.

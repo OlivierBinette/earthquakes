@@ -9,13 +9,13 @@ var scene = new THREE.Scene();
 //scene.background = new THREE.Color( 0xffffff );
 
 // Camera
-var camera = new THREE.PerspectiveCamera( 70, window.innerWidth/window.innerHeight, 0.1, 1000 );
+var camera = new THREE.PerspectiveCamera( 40, window.innerWidth/window.innerHeight, 0.1, 1000 );
 camera.position.z = 5;
 scene.add(camera);
 
 // Lights
-scene.add(new THREE.AmbientLight(0xffffff, 0.7) );
-var light = new THREE.PointLight( 0xffffff, 0.25, 1500 );
+scene.add(new THREE.AmbientLight(0xffffff, 0.8) );
+var light = new THREE.PointLight( 0xffffff, 0.35, 1500 );
 light.position.set( 50, 25, 50 );
 camera.add( light );
 
@@ -47,7 +47,7 @@ data = d3.csv('quakes-small.csv', function(d){
     x = Math.cos(phi) * Math.cos(lambda);
     y = Math.sin(phi);
     z = -Math.cos(phi) * Math.sin(lambda);
-    var pt = new Point([x, y, z], 0.04*(d.mag**2)/64);
+    var pt = new Point([x, y, z], 0.02*(d.mag**2)/64);
     pt["magnitude"] = d.mag;
     pt["place"] = d.place;
     pt["time"] = new Date(d.time);
@@ -67,9 +67,10 @@ data = d3.csv('quakes-small.csv', function(d){
         world.add(points);
         scene.add(world);
 
-        // Removing the loading indicator;
+        // Removing the loading indicator
         var ind = document.getElementById("loading_indicator");
         ind.parentElement.removeChild(ind);
+
         animate();
     });
 
@@ -91,7 +92,9 @@ controls.onMouseUp = function(event) {
 controls.onMouseDown = function(event) {
     document.body.style.cursor = "grabbing";
 }
+
 controls.setup();
+
 
 var highlighted = [];
 var raycaster = new THREE.Raycaster();
